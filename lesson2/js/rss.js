@@ -5,6 +5,30 @@ storeName 	  = "filesStore2";
 var WEBSQL = true;
 
 
+$(document).ready( function() {
+	$('#db_find_go').click(function() {
+		var $output = $('#db_find_result')
+		var db = openDatabase('fts_demo', 1, 'fts_demo', 5000000);
+
+		db.transaction(function (tx){
+		  function onReady() {
+		    var content = 'WebSQL has full-text search!';
+		    $output.append('\nText is: "' + content + '"');
+		    tx.executeSql('insert into doc values (?)', [content], function () {
+		      var terms = ['websql', 'text', 'search', 'searches', 'searching', 'indexeddb']
+		      terms.forEach(function (term) {
+		        tx.executeSql('select count(*) as count from doc where content match ?',
+		            [term], function (tx, res) {
+		          var count = res.rows.item(0).count;
+		          $output.append('\nTerm "' + term + '" matches: ' + !!count);
+		        });  
+		      });
+		    });
+		  }
+		  tx.executeSql('create virtual table doc using fts3(content text, tokenize=porter);', [], onReady, onReady);
+		});
+	});
+});
 
 function getFeed() {
 	var HOST = 'http://www.3dnews.ru/news/rss/';
@@ -16,6 +40,13 @@ function getFeed() {
 			dataType: 'xml',
 			success: xmlParse,
 			error: ajaxError
+		});
+		
+		console.log($('#db_find_go'));
+
+		$('#db_find_go').click(function() {
+			var $output = $('#db_find_result');
+			console.log('asd');
 		});
 	});
 	function xmlParse(xml) {
