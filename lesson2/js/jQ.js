@@ -5,7 +5,7 @@
 $(document).ready(function(){
 
 
-   $("#slToggle").click(function(){ $("#square").slideToggle(3000)});
+   $("#slToggle").click(function(){ $("#square").slideToggle(1000)});
 
 
 });    
