@@ -4,11 +4,11 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>svI7XERRAHGBtr8CrcQLob249I0WMdxP1PF5yyifPZk=</DigestValue>
+<DigestValue>H6rdulEhP+cWjL1eKl8ecfLuoNWoV/FVdvhT9m9rc1w=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>flNA7Ron2HE3Jxa5uJVhosq77jcgnTRMxUE5c+AkjYE=</DigestValue>
+<DigestValue>LUcRnPM4ePPuTjybMLfWfvWaF2sk6N5V8FsNqWnoUfk=</DigestValue>
 </Reference>
 <Reference URI="css%2Fstyle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -40,7 +40,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>pasHBhYBGKw2/EbzQJZo4JnaL9NIiaLz2+nyn7aYxJE=</DigestValue>
+<DigestValue>KkikIEiymAkB7HcnRh/UY3aHZP+WzBVMMMLOxqNG8Cw=</DigestValue>
 </Reference>
 <Reference URI="js%2FjQ.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -52,7 +52,7 @@
 </Reference>
 <Reference URI="js%2Frss.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3rVrC5lJL+cKzAR9eWzBPFHUwi7ix+rTmZB5e6YMQpM=</DigestValue>
+<DigestValue>n2GFc9qvFV3k7HoxtGZDni61v4+ao+IqPkpStpeZDHU=</DigestValue>
 </Reference>
 <Reference URI="lib%2Fjquery.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -808,7 +808,11 @@
 </Reference>
 <Reference URI="rss.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>nA1D6Q8EH90uL5fkihPuBZcaSUjVHSLvYa5ntzOHu1E=</DigestValue>
+<DigestValue>6tfVRqUC4Kdm8lqQHmdy5N7GKzMYyHIvWds2Q1cweZ8=</DigestValue>
+</Reference>
+<Reference URI="src%2Flesson2.zip">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>V6dDYyEgbeR5uNAYpCQm4O74UtasK5/Efrp5WTstsZ0=</DigestValue>
 </Reference>
 <Reference URI="video%2F_TouchCube.mp4">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -823,11 +827,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-SgZbzQjNKPYeqlGWuT3VrnkbifTsH7WWoVTIKwFFK197A7Brpw6u+A9GssvAhOdHi+iBzGqGmOKF
-+v7JW6fid/hQB0MZU7CqrGvN/jlJwEr4DPcZaPxuSdZQrN6Hdpjm5JAT/5IYKc6oWS2eG9KHZ5Ca
-irdD8l2RKbM25V/GwEterB3K8OMP72R8Ro3ksVhunrHwNXsAUiT7MpGjs5392pTa4tG5v7Nww+ho
-URWSsGo8DeR6T2h/cUXNSnFZxRAuTpO3z/6MGVph/JgvlBij/HWkxj8ZFNS+0xfYCZX1RLASSWv/
-z2Ga8gRANQIhX6JXt2270iYUdDy+ExEMw1wLFA==
+mKr1N2t4Z8l2G09rfhXqfpQs+WCh7EeNfJMOg3X4nCLveiAQNjxBj2sgaIPslI7HnwHqmWh4p5VS
+nUVobIZagSzfAkQ6xJQhDQlh+rxtvJcU9jB7OFQZP/OYOt4CIJw3cGzhv35wHFufUxce6ODc4p+K
+hIHK+RRA0SmHwSA7LZjLb6VavdUO1dvT7tCAOaPhHto3nb78c4nYHnE9emsL1MgEtBzqsmV8zK9K
+juoRwTrt4YXFyb68eVB+/57n2pGzuVeavSoXrzWe1SDosXl5dOuZVCvtQ7v6ZnBQsLI14f7hgutZ
+fSyBtOQFiGFak6WS7LcQH9CILfV9wFAEA4wdJA==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
