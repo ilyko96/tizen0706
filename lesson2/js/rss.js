@@ -1,3 +1,11 @@
+var indexedDB 	  = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB,
+IDBTransaction  = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction,
+baseName 	  = "filesBase",
+storeName 	  = "filesStore2";
+var WEBSQL = true;
+
+
+
 function getFeed() {
 	var HOST = 'http://www.3dnews.ru/news/rss/';
 	
@@ -11,64 +19,57 @@ function getFeed() {
 		});
 	});
 	function xmlParse(xml) {
+		clearDB();
 		$('#rssContent').text('');
 		var arr = [];
+		var cnt = 0;
 		$(xml).find('item').each(function() {
-			var img = document.createElement('img');
-			img.src = $(this).find('enclosure').attr('url');
-			img.style.width = '100%';
-			var divImg = document.createElement('div');
-			divImg.class = 'feedImage';
-			divImg.appendChild(img);
-			var divTitle = document.createElement('div');
-			divTitle.class = 'feedTitle';
-			divTitle.style.fontWeight = 'bold';
-			divTitle.innerHTML = $(this).find('title').text();
-			var divDescr = document.createElement('div');
-			divDescr.class = 'feedDescr';
-			divDescr.innerHTML = $(this).find('description').text();
-			var item = document.createElement('div');
-			item.class = 'feedItem';
-			item.appendChild(divImg);
-			item.appendChild(divTitle);
-			item.appendChild(divDescr);
-			$('#rssContent').append(item);
-			addItem($(this).find('enclosure').attr('url'),
+			var obj = addItem($(this).find('enclosure').attr('url'),
 					$(this).find('title').text(),
 					$(this).find('description').text());
-			
-			var obj = {
-					img: img.src,
-					title: divTitle.innerHTML,
-					descr: divDescr.innerHTML
-				};
 			arr.push(obj);
-			setData(obj);
+			if (WEBSQL)
+				wSetData(obj);
+			else
+				setData(obj);
+			cnt++;
 		});
+		console.log(cnt);
 	}
 	function ajaxError(e) {
-		getStorage(function(res) {
+		function adder(res) {
+			function getter(v, i) {
+				if (WEBSQL)
+					return v[i];
+				else
+					return v[i];
+			}
 			for (var item in res) {
 				var img, title, descr;
 				for (var itemP in (value = res[item])) {
 					switch(itemP) {
 					case 'img':
-						img = value[itemP];
+						img = getter(value, itemP);
 						break;
 					case 'title':
-						title = value[itemP];
+						title = getter(value, itemP);
 						break;
-					default:
-						descr = value[itemP];
+					case 'descr':
+						descr = getter(value, itemP);
 					}
-					addItem(img, title, descr);
 				}
+				addItem(img, title, descr);
 			}
-		})
+		}
+		if (WEBSQL)
+			wGetData(adder);
+		else
+			getStorage(adder);
 	}
-	function addItem(img, title, descr) {
+	
+	function addItem(imgg, title, descr) {
 		var img = document.createElement('img');
-		img.src = img;
+		img.src = imgg;
 		img.style.width = '100%';
 		var divImg = document.createElement('div');
 		divImg.class = 'feedImage';
@@ -86,21 +87,49 @@ function getFeed() {
 		item.appendChild(divTitle);
 		item.appendChild(divDescr);
 		$('#rssContent').append(item);
+		return {img: imgg, title: title, descr: descr};
 	}
 }
 function clearDB() {
-	clearStorage();
+	if (WEBSQL)
+		wClearStorage();
+	else
+		clearStorage();
 }
 
 
 
 
 
+function wSetData(o) {
+	var connect = window.openDatabase(baseName, "1.0", "myDB", 200000);
+	connect.transaction(function(db) {
+		//Асинхронно
+		db.executeSql("CREATE TABLE IF NOT EXISTS "+ storeName +" (id INTEGER PRIMARY KEY AUTOINCREMENT, img TEXT, title TEXT, descr TEXT)", [], null, null);
+		db.executeSql("INSERT INTO "+ storeName +" (title, descr, img) VALUES (?, ?, ?)", [o.title, o.descr, o.img], null, null);
+	}); 
+}
+function wGetData(f) {
+	var connect = window.openDatabase(baseName, "1.0", "myDB", 200000);
+	var res;
+	console.log(res);
+	connect.transaction(function(db) {
+		db.executeSql('SELECT * FROM '+ storeName, [], function (db, results) {
+		      f(results.rows);
+		   }, null);
+	});
+}
+function wClearStorage() {
+	var connect = window.openDatabase(baseName, "1.0", "myDB", 200000);
+	connect.transaction(function(db) {
+		//Асинхронно
+		db.executeSql("DELETE FROM " + storeName, [], null, function(e) {console.log(e);});
+	});
+}
 
-var indexedDB 	  = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB,
-IDBTransaction  = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction,
-baseName 	  = "filesBase",
-storeName 	  = "filesStore";
+
+
+
 
 
 
